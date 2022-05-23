@@ -1,0 +1,8 @@
+data/*
+results/*
+scripts/.ipynb_checkpoints/*
+*.pyc
+*.asv
+*.mat
+*.DS_Store
+
