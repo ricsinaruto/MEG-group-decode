@@ -50,12 +50,16 @@ These models are the sub-blocks of the above models:
 * ```WavenetSimpleSembNonlinear1```: Similar to ```WavenetSimpleSembConcat```, but with nonlinearity only in the first layer.
 
 ## Examples
-To replicate some of the results in the paper we provide args files in the *examples* folder. To try these out on the publicly available MEG data, follow these steps:  
+To replicate some of the results in the paper we provide args files in the examples folder. To try these out on the publicly available MEG data, follow these steps:  
 1. ```python scripts/cichy_download.py``` to download data.
 2. ```python scripts/cichy_preproc_epoched.py``` to preprocess data.
-3. Copy the contents of the example args file you want to run into *args.py*
+3. Copy the contents of the example args file you want to run into ```args.py```
 4. ```python launch.py```
 
+The following example args files are available:
+
+
+Steps 1 and 2 can be skipped if running on non-public data. The relevant data paths in the args file have to modified in this case.
 
 Note that results from running the examples will not 100% reproduce our results, because we used the raw continuous MEG data. Also, different random seeds may cause (very) small differences.
 
