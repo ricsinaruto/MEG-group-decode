@@ -57,11 +57,18 @@ To replicate some of the results in the paper we provide args files in the examp
 4. ```python launch.py```
 
 The following example args files are available:
+* ```args_linear_subject.py```: trains a subject-level linear Wavenet Classifier (WC) on each subject.
+* ```args_nonlinear_subject.py```: trains a subject-level nonlinear Wavenet Classifier (WC) on each subject.
+* ```args_nonlinear_group.py```: trains a group-level nonlinear Wavenet Classifier (WC) on all subjects.
+* ```args_linear_group.py```: trains a group-level linear Wavenet Classifier (WC) on all subjects.
+* ```args_linear_group-emb.py```: trains a group-level linear Wavenet Classifier (WC) with subject embeddings.
+* ```args_nonlinear_group-emb.py```: trains a group-level nonlinear Wavenet Classifier (WC) with subject embeddings. After the training is done, temporal and spatial PFI is computed corresponding to Figure 4b in the paper.
+* ```args_nonlinear_group-emb_finetuned.py```: trains a subject-level nonlinear Wavenet Classifier (WC) which is initialized with the *nonlinear_group-emb* model (which needs to be trained first).
+* ```args_generalization_subject.py```: trains a *linear_subject* model with 10 training data ratios for each subject (Figure 4a in the paper).
+* ```args_kernel_spatiotemporalPFI.py```: Runs temporal and spatial PFI for selected kernels of the *nonlinear_group-emb*, which needs to be trained first. Corresponds to Figure 5a and 5c in the paper.
+* ```args_kernelFIR_spectralPFI.py```: Runs spectral PFI and kernel FIR analysis for selected kernels of the *nonlinear_group-emb*, which needs to be trained first. Corresponds to Figure 6a and 6c in the paper.
 
-
-Steps 1 and 2 can be skipped if running on non-public data. The relevant data paths in the args file have to modified in this case.
-
-Note that results from running the examples will not 100% reproduce our results, because we used the raw continuous MEG data. Also, different random seeds may cause (very) small differences.
+Steps 1 and 2 can be skipped if running on non-public data. The relevant data paths in the args file have to modified in this case. Note that results from running the examples will not 100% reproduce our results, because we used the raw continuous MEG data. Also, different random seeds may cause (very) small differences.
 
 ## Visualizations
 Some of the figures for the paper have been created by using the jupyter notebooks provided in the scripts folder.
