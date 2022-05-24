@@ -19,17 +19,17 @@ class Args:
         self.name = 'args.py'  # name of this file, don't change
         self.common_dataset = False  # use a shared dataset for all runs
         self.load_dataset = True  # whether to load self.dataset
-        self.learning_rate = 0.00005  # learning rate for Adam
-        self.max_trials = 1  # ratio of training data (1=max)
-        self.batch_size = 59  # batch size for training and validation data
-        self.epochs = 500  # number of loops over training data
+        self.learning_rate = [0.000015, 0.000008, 0.000005, 0.0001, 0.00009, 0.00008, 0.00007, 0.00006, 0.00005]  # learning rate for Adam
+        self.max_trials = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]  # ratio of training data (1=max)
+        self.batch_size = [2, 2, 2, 59, 59, 59, 59, 59, 59]  # batch size for training and validation data
+        self.epochs = 1000  # number of loops over training data
         self.val_freq = 20  # how often to validate (in epochs)
         self.print_freq = 5  # how often to print metrics (in epochs)
         self.save_curves = True  # whether to save loss curves to file
         self.load_model = False  # either False or path to model(s) to load
         self.result_dir = [os.path.join(  # path(s) to save model and others
             'results',
-            'linear_subject',
+            'nonlinear_subject',
             'subj' + str(i)) for i in range(n)]
         self.model = WavenetClassifier  # classifier model to use
         self.dataset = CichyData  # dataset class for loading and handling data

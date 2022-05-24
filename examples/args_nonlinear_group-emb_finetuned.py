@@ -3,8 +3,8 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 
-from classifiers_wavenet import WavenetClassifier
-from wavenets_simple import WavenetSimple
+from classifiers_wavenet import WavenetClassifierSemb
+from wavenets_simple import WavenetSimpleSembConcat
 from cichy_data import CichyData
 
 
@@ -26,31 +26,34 @@ class Args:
         self.val_freq = 20  # how often to validate (in epochs)
         self.print_freq = 5  # how often to print metrics (in epochs)
         self.save_curves = True  # whether to save loss curves to file
-        self.load_model = False  # either False or path to model(s) to load
+        self.load_model = [os.path.join(
+            'results',
+            'nonlinear_group-emb')] * n  # either False or path to model(s) to load
         self.result_dir = [os.path.join(  # path(s) to save model and others
             'results',
-            'linear_subject',
-            'subj' + str(i)) for i in range(n)]
-        self.model = WavenetClassifier  # classifier model to use
+            'nonlinear_group-emb',
+            'finetuned',
+            'subj_' + str(i)) for i in range(n)]
+        self.model = WavenetClassifierSemb  # classifier model to use
         self.dataset = CichyData  # dataset class for loading and handling data
 
         # wavenet arguments
-        self.activation = torch.nn.Identity()  # activation function for models
-        self.subjects = 0  # number of subjects used for training
-        self.embedding_dim = 0  # subject embedding size
-        self.p_drop = 0.7  # dropout probability
+        self.activation = torch.asinh  # activation function for models
+        self.subjects = 1  # number of subjects used for training
+        self.embedding_dim = 10  # subject embedding size
+        self.p_drop = 0.4  # dropout probability
         self.ch_mult = 2  # channel multiplier for hidden channels in wavenet
         self.kernel_size = 2  # convolutional kernel size
         self.timesteps = 1  # how many timesteps in the future to forecast
         self.sample_rate = [0, 256]  # start and end of timesteps within trials
-        self.rf = 8  # receptive field of wavenet
-        rf = 8
+        self.rf = 64  # receptive field of wavenet
+        rf = 64
         ks = self.kernel_size
         nl = int(np.log(rf) / np.log(ks))
         self.dilations = [ks**i for i in range(nl)]  # dilation: 2^num_layers
 
         # classifier arguments
-        self.wavenet_class = WavenetSimple  # class of wavenet model
+        self.wavenet_class = WavenetSimpleSembConcat  # class of wavenet model
         self.num_classes = 118  # number of classes for classification
         self.units = [1000, 400]  # hidden layer sizes of fully-connected block
 
@@ -65,13 +68,13 @@ class Args:
 
         self.numpy = True  # whether data is saved in numpy format
         self.crop = 1  # cropping ratio for trials
-        self.whiten = 306  # pca components used in whitening
+        self.whiten = False  # pca components used in whitening
         self.group_whiten = False  # whether to perform whitening at the GL
         self.split = np.array([0, 0.2])  # validation split (start, end)
         self.sr_data = 250  # sampling rate used for downsampling
         self.save_data = True  # whether to save the created data
         self.subjects_data = False  # list of subject inds to use in group data
-        self.dump_data = [os.path.join(d, 'data_files', 'c')
+        self.dump_data = [os.path.join(d, 'data_files_nowhiten', 'c')
                           for d in self.data_path]  # path(s) for dumping data
         self.load_data = ''#self.dump_data  # path(s) for loading data files
 

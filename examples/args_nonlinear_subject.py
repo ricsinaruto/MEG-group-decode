@@ -22,20 +22,20 @@ class Args:
         self.learning_rate = 0.00005  # learning rate for Adam
         self.max_trials = 1  # ratio of training data (1=max)
         self.batch_size = 59  # batch size for training and validation data
-        self.epochs = 500  # number of loops over training data
+        self.epochs = 2000  # number of loops over training data
         self.val_freq = 20  # how often to validate (in epochs)
         self.print_freq = 5  # how often to print metrics (in epochs)
         self.save_curves = True  # whether to save loss curves to file
         self.load_model = False  # either False or path to model(s) to load
         self.result_dir = [os.path.join(  # path(s) to save model and others
             'results',
-            'linear_subject',
+            'nonlinear_subject',
             'subj' + str(i)) for i in range(n)]
         self.model = WavenetClassifier  # classifier model to use
         self.dataset = CichyData  # dataset class for loading and handling data
 
         # wavenet arguments
-        self.activation = torch.nn.Identity()  # activation function for models
+        self.activation = torch.asinh  # activation function for models
         self.subjects = 0  # number of subjects used for training
         self.embedding_dim = 0  # subject embedding size
         self.p_drop = 0.7  # dropout probability

@@ -3,8 +3,8 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 
-from classifiers_wavenet import WavenetClassifier
-from wavenets_simple import WavenetSimple
+from classifiers_wavenet import WavenetClassifierSemb
+from wavenets_simple import WavenetSimpleSembConcat
 from cichy_data import CichyData
 
 
@@ -13,15 +13,15 @@ class Args:
     func = {'train': True}  # dict of functions to run from training.py
 
     def __init__(self):
-        n = 15  # can be used to do multiple runs, e.g. over subjects
+        n = 1  # can be used to do multiple runs, e.g. over subjects
 
         # experiment arguments
         self.name = 'args.py'  # name of this file, don't change
         self.common_dataset = False  # use a shared dataset for all runs
         self.load_dataset = True  # whether to load self.dataset
-        self.learning_rate = 0.00005  # learning rate for Adam
+        self.learning_rate = 0.0001  # learning rate for Adam
         self.max_trials = 1  # ratio of training data (1=max)
-        self.batch_size = 59  # batch size for training and validation data
+        self.batch_size = 590  # batch size for training and validation data
         self.epochs = 500  # number of loops over training data
         self.val_freq = 20  # how often to validate (in epochs)
         self.print_freq = 5  # how often to print metrics (in epochs)
@@ -29,35 +29,33 @@ class Args:
         self.load_model = False  # either False or path to model(s) to load
         self.result_dir = [os.path.join(  # path(s) to save model and others
             'results',
-            'linear_subject',
-            'subj' + str(i)) for i in range(n)]
-        self.model = WavenetClassifier  # classifier model to use
+            'linear_group-emb')]
+        self.model = WavenetClassifierSemb  # classifier model to use
         self.dataset = CichyData  # dataset class for loading and handling data
 
         # wavenet arguments
         self.activation = torch.nn.Identity()  # activation function for models
-        self.subjects = 0  # number of subjects used for training
-        self.embedding_dim = 0  # subject embedding size
-        self.p_drop = 0.7  # dropout probability
+        self.subjects = 15  # number of subjects used for training
+        self.embedding_dim = 10  # subject embedding size
+        self.p_drop = 0.4  # dropout probability
         self.ch_mult = 2  # channel multiplier for hidden channels in wavenet
         self.kernel_size = 2  # convolutional kernel size
         self.timesteps = 1  # how many timesteps in the future to forecast
         self.sample_rate = [0, 256]  # start and end of timesteps within trials
-        self.rf = 8  # receptive field of wavenet
-        rf = 8
+        self.rf = 64  # receptive field of wavenet
+        rf = 64
         ks = self.kernel_size
         nl = int(np.log(rf) / np.log(ks))
         self.dilations = [ks**i for i in range(nl)]  # dilation: 2^num_layers
 
         # classifier arguments
-        self.wavenet_class = WavenetSimple  # class of wavenet model
+        self.wavenet_class = WavenetSimpleSembConcat  # class of wavenet model
         self.num_classes = 118  # number of classes for classification
         self.units = [1000, 400]  # hidden layer sizes of fully-connected block
 
         # dataset arguments
         data_path = os.path.join('data', 'preproc')
-        self.data_path = [os.path.join(data_path, 'subj' + str(i))
-                          for i in range(n)]  # path(s) to data directory
+        self.data_path = [os.path.join(data_path)]  # path(s) to data directory
         self.num_channels = list(range(306))  # channel indices
         # should be 306 when self.load_data loading raw data, and 307
         # when loading data with self.load_data
@@ -65,7 +63,7 @@ class Args:
 
         self.numpy = True  # whether data is saved in numpy format
         self.crop = 1  # cropping ratio for trials
-        self.whiten = 306  # pca components used in whitening
+        self.whiten = False  # pca components used in whitening
         self.group_whiten = False  # whether to perform whitening at the GL
         self.split = np.array([0, 0.2])  # validation split (start, end)
         self.sr_data = 250  # sampling rate used for downsampling

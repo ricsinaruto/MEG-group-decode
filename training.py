@@ -462,7 +462,7 @@ class Experiment:
             val_func = self.kernelPFI
 
         # read a file containing closest channels to each channel location
-        path = os.path.join(self.args.result_dir, 'closest' + str(top_chs))
+        path = self.args.chs_pfi_path
         with open(path, 'rb') as f:
             closest_k = pickle.load(f)
 
@@ -539,7 +539,7 @@ class Experiment:
             val_func = self.kernelPFI
 
         # read a file containing closest channels to each channel location
-        path = os.path.join(self.args.result_dir, 'closest' + str(top_chs))
+        path = self.args.chs_pfi_path
         with open(path, 'rb') as f:
             closest_k = pickle.load(f)
 
