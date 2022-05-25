@@ -36,7 +36,7 @@ To run cross-validation, set ```split``` to a list of validation split ratios.
 To preprocess continuous .fif data use ```scripts/cichy_preprocess.py```. This filters the data and creates trials.  
 To download and preprocess the publicly available epoched data run ```scripts/cichy_download.py``` and ```scripts/cichy_preproc_epoched.py```.
 
-Before using any of the functions given in **Behaviour**, first training and validation splits need to be created for epoched data. This can be achieved by giving no function in ```func``` in ```args.py```, and setting ```load_data``` to False. This mode loads preprocessed data given by ```data_path``` variable, and saves ready-to-use splits to ```dump_data``` path. This ready-to-use data can then be loaded by setting ```load_data``` to the same path.
+If running any function on some data for the first time ```load_data``` needs to be False. This loads preprocessed data given by ```data_path``` variable, and saves ready-to-use splits to ```dump_data``` path. This ready-to-use data can then be used in subsequent runs by setting ```load_data``` to the ```dump_data``` path.
 
 ## Models
 The following classification models are available:
@@ -58,15 +58,15 @@ To replicate some of the results in the paper we provide args files in the examp
 
 The following example args files are available:
 * ```args_linear_subject.py```: trains a subject-level linear Wavenet Classifier (WC) on each subject.
-* ```args_nonlinear_subject.py```: trains a subject-level nonlinear Wavenet Classifier (WC) on each subject.
-* ```args_nonlinear_group.py```: trains a group-level nonlinear Wavenet Classifier (WC) on all subjects.
-* ```args_linear_group.py```: trains a group-level linear Wavenet Classifier (WC) on all subjects.
-* ```args_linear_group-emb.py```: trains a group-level linear Wavenet Classifier (WC) with subject embeddings.
-* ```args_nonlinear_group-emb.py```: trains a group-level nonlinear Wavenet Classifier (WC) with subject embeddings. After the training is done, temporal and spatial PFI is computed corresponding to Figure 4b in the paper.
-* ```args_nonlinear_group-emb_finetuned.py```: trains a subject-level nonlinear Wavenet Classifier (WC) which is initialized with the *nonlinear_group-emb* model (which needs to be trained first).
+* ```args_nonlinear_subject.py```: trains a subject-level nonlinear WC on each subject.
+* ```args_nonlinear_group.py```: trains a group-level nonlinear WC on all subjects.
+* ```args_linear_group.py```: trains a group-level linear WC on all subjects.
+* ```args_linear_group-emb.py```: trains a group-level linear WC with subject embeddings.
+* ```args_nonlinear_group-emb.py```: trains a group-level nonlinear WC with subject embeddings. After the training is done, temporal and spatial PFI is computed corresponding to Figure 4b in the paper.
+* ```args_nonlinear_group-emb_finetuned.py```: trains a subject-level nonlinear WC which is initialized with the *nonlinear_group-emb* model (which needs to be trained first).
 * ```args_generalization_subject.py```: trains a *linear_subject* model with 10 training data ratios for each subject (Figure 4a in the paper).
-* ```args_kernel_spatiotemporalPFI.py```: Runs temporal and spatial PFI for selected kernels of the *nonlinear_group-emb*, which needs to be trained first. Corresponds to Figure 5a and 5c in the paper.
-* ```args_kernelFIR_spectralPFI.py```: Runs spectral PFI and kernel FIR analysis for selected kernels of the *nonlinear_group-emb*, which needs to be trained first. Corresponds to Figure 6a and 6c in the paper.
+* ```args_kernel_spatiotemporalPFI.py```: Runs temporal and spatial PFI for selected kernels of the *nonlinear_group-emb* model, which needs to be trained first. Corresponds to Figure 5a and 5c in the paper.
+* ```args_kernelFIR_spectralPFI.py```: Runs spectral PFI and kernel FIR analysis for selected kernels of the *nonlinear_group-emb* model, which needs to be trained first. Corresponds to Figure 6a and 6c in the paper.
 
 Steps 1 and 2 can be skipped if running on non-public data. The relevant data paths in the args file have to modified in this case. Note that results from running the examples will not 100% reproduce our results, because we used the raw continuous MEG data. Also, different random seeds may cause (very) small differences.
 
