@@ -1,12 +1,21 @@
-# MEG-transfer-decoding
+# MEG-group-decode
 
+Code for reproducing results in [Generalizing Brain Decoding Across Subjects with Deep Learning](arxiv). We propose a neuroscientifically interpretable deep learning model capable of jointly decoding multiple subjects in neuroimaging data aided by subject embeddings.
+
+
+## Features
+  :magnet: &nbsp; Train WaveNet-based decoding models on MEG data.  
+  :rocket: &nbsp; Subject and group-level models included with optional subject embeddins.  
+  :brain: &nbsp; Neuroscientifically interpretable features can be extracted and visualized from trained models.  
+  :twisted_rightwards_arrows: &nbsp; Flexible pipeline with support for [multi-run modes](https://github.com/ricsinaruto/MEG-group-decode/edit/main/README.md#multi-run-modes) (e.g. cross-validation within and across subjects, different training set ratios, etc.)
+
+
+## Usage
 First requirements need to be installed.
 ```
 pip install -r requirements.txt
 ```
 
-
-## Behaviour
 For each run modify ```args.py``` to specify parameters and behaviour, then run ```launch.py``` which calls ```training.py```, which contains the main experimental pipeline:
 ```
 python launch.py
@@ -73,5 +82,16 @@ Steps 1 and 2 can be skipped if running on non-public data. The relevant data pa
 ## Visualizations
 Some of the figures for the paper have been created by using the jupyter notebooks provided in the scripts folder.
 
+## Authors
+* **[Richard Csaky](https://ricsinaruto.github.io)**
+
 ## License
-MIT license. See LICENSE file.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/ricsinaruto/MEG-group-decode/blob/master/LICENSE) file for details.  
+Please include a link to this repo if you use any of the dataset or code in your work and consider citing the following paper:
+```
+@article{Csaky:2022,
+    title = "Generalizing Brain Decoding Across Subjects with Deep Learning",
+    author = "Csaky, Richard and van Es, Mats and Jones, Oiwi Parker and Woolrich, Mark",
+    url = "arxiv",
+}
+```
