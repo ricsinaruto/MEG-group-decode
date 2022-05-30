@@ -1,6 +1,6 @@
 # MEG-group-decode
 
-Code for reproducing results in [Generalizing Brain Decoding Across Subjects with Deep Learning](arxiv). We propose a neuroscientifically interpretable deep learning model capable of jointly decoding multiple subjects in neuroimaging data aided by subject embeddings.
+Code for reproducing results in [Generalizing Brain Decoding Across Subjects with Deep Learning](https://arxiv.org/abs/2205.14102). We propose a neuroscientifically interpretable deep learning model capable of jointly decoding multiple subjects in neuroimaging data aided by subject embeddings.
 
 
 ## Features
@@ -90,8 +90,11 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 Please include a link to this repo if you use any of the dataset or code in your work and consider citing the following paper:
 ```
 @article{Csaky:2022,
-    title = "Generalizing Brain Decoding Across Subjects with Deep Learning",
-    author = "Csaky, Richard and van Es, Mats and Jones, Oiwi Parker and Woolrich, Mark",
-    url = "arxiv",
+    title = {Generalizing Brain Decoding Across Subjects with Deep Learning},
+    author = {Csaky, Richard and Van Es, Mats and Jones, Oiwi Parker and Woolrich, Mark},
+    year = {2022},
+    url = {https://arxiv.org/abs/2205.14102},
+    journal	= {arXiv preprint arXiv:2205.14102},
+    publisher = {arXiv}
 }
 ```
