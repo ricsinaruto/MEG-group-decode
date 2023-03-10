@@ -40,7 +40,7 @@ for subj in range(1, 16):
     epochs = mne.EpochsArray(np.array(epochs_mat), info)
 
     # Filters
-    epochs.filter(l_freq=0.1, h_freq=124.9, phase='minimum')
+    epochs.filter(l_freq=None, h_freq=124.9, phase='minimum')
 
     # Save epoched data
     for epoch, event in zip(epochs, event_id):
