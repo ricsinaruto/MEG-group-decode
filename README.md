@@ -1,6 +1,6 @@
 # MEG-group-decode
 
-Code for reproducing results in [Generalizing Brain Decoding Across Subjects with Deep Learning](https://arxiv.org/abs/2205.14102). We propose a neuroscientifically interpretable deep learning model capable of jointly decoding multiple subjects in neuroimaging data aided by subject embeddings.
+Code for reproducing results in [Group-level brain decoding with deep learning](https://onlinelibrary.wiley.com/doi/10.1002/hbm.26500?af=R). We propose a neuroscientifically interpretable deep learning model capable of jointly decoding multiple subjects in neuroimaging data aided by subject embeddings.
 
 
 ## Features
